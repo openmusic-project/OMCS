@@ -12,7 +12,7 @@
   "makes a circular list out of elem"
   (setq elem (list elem))
   (rplacd elem elem))
- 
+
 ;===============================================
 ;  User search-engine functions
 ;===============================================

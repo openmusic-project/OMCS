@@ -15,7 +15,7 @@
   (let (head)
     (loop while (atom (car rule)) do (push (pop rule) head))
     (nreverse head)))
- 
+
 (defun rule-body (rule)
   (if (stringp (car (last rule)))
     (second (car (last rule 2)))

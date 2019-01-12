@@ -2,13 +2,15 @@
 ;===============================================
 
 ;;; PWConstraints by Mikael Laurson (c), 1995
+;;; Bugg fix in OSX (OM 4.7): 
+;;; compile-pattern-matching-rule: i changed to I (marked red)
 
 ;===============================================
 ;===============================================
 (in-package omcs)
 ;(in-package :cl-user)
 ;===============================================
- 
+
 ;===============================================
 ;; PM syntax: 
 ;===============================================
@@ -75,7 +77,7 @@
                    (push `(= ,(nth i plain-pat) (nth ,i l)) constant-res)
                    (push `(= ,(nth i plain-pat) (nth ,(1- variable-count) rl)) constant-res))
                  (decf variable-count))
-                ((index-variable-p (nth i plain-pat))
+                ((index-variable-p (nth i plain-pat)) (print plain-pat)
                  (push (1- (read-from-string (remove "i" (format nil "~A" (nth i plain-pat)) :test #'string=))) index-variable-indexes) 
                  (push `(,(nth i plain-pat) (nth ,(1- (read-from-string (remove "i" (format nil "~A" (nth i plain-pat)) :test #'string=))) l)) let-res)
                  (push `,(nth i plain-pat) index-res))

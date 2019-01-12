@@ -20,7 +20,7 @@
   (make-instance 'arc :fn fn :prev-s-variables prev-s-variables 
                  :next-s-variable next-s-variable))
 
- 
+
 ;===============================================
 ;          search-variable
 ;===============================================

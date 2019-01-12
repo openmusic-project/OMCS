@@ -21,7 +21,7 @@
    (print-fl :initform nil :initarg :print-fl :accessor print-fl)
    (sols-mode :initform :once :initarg :sols-mode :accessor sols-mode)))
 
- 
+
 ;========================
 ; misc
 ;========================
@@ -113,7 +113,7 @@
     (setf (nthcdr (1+ index)  prev-sols) nil)
     ;(print (list 'prev (butlast prev-sols) candidates))
     (dolist (candidate candidates)
-      (setf (first ith) (car candidates))
+      (setf (first ith) candidate);; ML 22.01.04 bug pointed by Kilian: (car candidates) -> candidate
       (setf (first prev-sols-rev) candidate)
       (setq score 0)
       (dolist (fn fns)
