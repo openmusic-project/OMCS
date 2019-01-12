@@ -6,48 +6,63 @@
 ;;; 
 ;;; All copyright belongs to Mikael Laurson, who also is the author of 
 ;;; the code for this library.
+
 ;===============================================
-;--------------------------------------------------
-(In-package :cl-user)
 
-  
-;--------------------------------------------------
-;Variable definiton with files to load 
-;--------------------------------------------------
+;version 0.50 is the first version released on IRCAM Forumm CDrom
+;version 0.53 adds a graphical interface for rules
+;version 1.0 corrects a bug for the l variable (27/01/2004)
+;version 1.01 corrects a bug in the index rule (function compile-pattern-matching-rule)
+;version 1.02 updated the code to load properly in OM 6.12
+;   Known issue: icons are not showing properly (default icon is used)
+;version 1.1 merge versions/update encoding and files
 
-(defvar *OM_OMCS-lib-files* nil)
-(setf *OM_OMCS-lib-files* (list 
-                           (om::om-relative-path '("sources" "Load-OMCs") "OMConstraints-package")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "constraint-utilities")
-                           
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "constraint-diagnostics")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "search-variable")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "search-engine")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "PM-compiler")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "forward-checking")
-                           (om::om-relative-path '("sources" "OMConstraints-kernel") "OMCs-utilities-split1")
-                          ))
+;--------------------------------------------------
+(in-package :cl-user)
+ 
 
 ;--------------------------------------------------
 ;Loading files 
 ;--------------------------------------------------
-(mapc #'om::compile&load *OM_OMCS-lib-files*)
-(in-package omcs)
+(mapc #'(lambda (file) 
+          (compile&load (make-pathname :directory (append (pathname-directory *load-pathname*) (list "sources")) :name file)))
+      '(
+        "package"
+        "constraint-utilities"
+        ;;====================
+        "constraint-diagnostics"  
+        "search-variable"
+        "search-engine"
+        "PM-compiler"
+        "forward-checking"
+        "OMCs-utilities-split1"
+        "Graphic-rule-interface"
+        ))
 
+
+(in-package :omcs)
+
+;--------------------------------------------------
+;filling packages
 ;--------------------------------------------------
 ; RC subpackages initialization
 ; ("sub-pack-name" subpacke-lists class-list function-list class-alias-list)
 ;--------------------------------------------------
-(defvar *subpackages-list* nil)
-(setf *subpackages-list*
-      '(
+
+(om::fill-library '(
         ("01-PMC" nil nil (pmc-engine) nil)
+        ("02-RULES" nil nil (wildcard-rule index-rule) nil)
+        ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index) nil)
         ))
-;--------------------------------------------------
-;filling packages
-;--------------------------------------------------
-(om::fill-library *subpackages-list*)
 
 
+(om::set-lib-release 1.1)
+
+(print "
+;;;===========================================================================
+;;; OMRC 1.1
+;;; PMC engine for OM by M. Laurson / O. Sandred
+;;;===========================================================================
+")
 
 ;ERRORS function while? in constraint-utilities.lisp, search-variable.lisp
