@@ -1,0 +1,33 @@
+;;;===========================================================================
+;;; PMC engine for OM
+;;;===========================================================================
+
+(:om-lib
+ 
+ (:version 1.2)
+
+ (:doc "PMC engine for OM")
+
+ (:author "M. Laurson / O. Sandred")
+
+ ;;; SOURCE FILES TO LOAD
+ (:source-files 
+  "sources/package"
+  "sources/constraint-utilities"
+  "sources/constraint-diagnostics"
+  "sources/search-variable"
+  "sources/search-engine"
+  "sources/PM-compiler"
+  "sources/forward-checking"
+  "sources/OMCs-utilities-split1"
+  "sources/Graphic-rule-interface"
+  )
+
+ (:symbols
+  (:packages 
+   (:package (:name "PMC") (:functions "omcs::pmc-engine"))
+   (:package (:name "Rules") (:functions "omcs::wildcard-rule" "omcs::index-rule"))
+   (:package (:name "Tools") (:functions "omcs::partial-solution" "omcs::rev-partial-solution" "omcs::current-index"))
+   ))
+)
+

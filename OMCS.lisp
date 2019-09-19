@@ -55,11 +55,11 @@
         ))
 
 
-(om::set-lib-release 1.1)
+(om::set-lib-release 1.2)
 
 (print "
 ;;;=============================================
-;;; OMCS 1.1
+;;; OMCS 1.2
 ;;; PMC engine for OM by M. Laurson / O. Sandred
 ;;;=============================================
 ")
