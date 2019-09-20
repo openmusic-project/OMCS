@@ -29,7 +29,6 @@
       '(
         "package"
         "constraint-utilities"
-        ;;====================
         "constraint-diagnostics"  
         "search-variable"
         "search-engine"
