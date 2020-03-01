@@ -3,7 +3,7 @@
 ;  All copyright belongs to Mikael Laurson, who also is the author of 
 ;  the code for the PWConstraints library.
 ;
-;  Functions for graphical interface in OM by …rjan Sandred 1999 and Aug-Sept 2002 (Paris/Stockholm)
+;  Functions for graphical interface in OM by Ã˜rjan Sandred 1999 and Aug-Sept 2002 (Paris/Stockholm)
 ;  
 ;
 ;   Use the wildcard-rule and i-rule functions to build rules graphicaly for the pmc engine.
