@@ -107,6 +107,7 @@ inputs to the rule."
   
   :initvals '(nil 'om::no_input 'om::no_input)
   :indoc '("function" "variable1" "variable2")
+  :icon 401
   :doc "Takes any function and creats a pmc rule out of it. The inputs to the function 
 will be called ?1 ?2 ?3.... ?n. The function migth be an OM patch in the lambda state.
 
@@ -116,7 +117,7 @@ If the inputs variable1 and/or variable2 are used, the last inputs to the rule w
 always get the values from these inputs in the place of the search variable (i.e.
 if variable1 is used, and the rule has 3 inputs, input 1 and to will be used for ?1 and ?2,
 and input 3 will be used for the value of variable1."
-  :icon 401
+
 
 
   (make-wildcard-rule2 function variable1 variable2))
@@ -127,6 +128,7 @@ and input 3 will be used for the value of variable1."
   
   :initvals '(nil '(1) 'om::no_input 'om::no_input)
   :indoc '("function" "list" "variable1" "variable2")
+  :icon 402
   :doc "Takes any function and creats a pmc index rule out of it. The inputs to the function 
 will be assigned to the index numbers given in the list of index-numbers (and the index numbers 
 must be exactly as many as arguments to the function). The function 
@@ -138,27 +140,30 @@ If the inputs variable1 and/or variable2 are used, the last inputs to the rule w
 always get the values from these inputs in the place of the search variable (i.e.
 if variable1 is used, and the rule has 3 inputs, input 1 and to will be used for the first
 and second index variable, and input 3 will be used for the value of variable1."
-  :icon 401
+ 
     
   (make-i-rule2 function index-numbers variable1 variable2))
 
 
 (om::defmethod! omcs::current-index ()
   :doc "returns the current search-index (counted from 1)"
-  :icon 402
-    
+  :icon 403    
   (omcs::cur-index))
 
+(om::defmethod! omcs::current-length ()
+  :doc "returns the number of search-variables of the current search-engine"
+  :icon 404    
+  (omcs::cur-slen))
 
 (om::defmethod! omcs::partial-solution ()
   :doc "returns the partial-solution"
-  :icon 403
+  :icon 405
   (let ((my-search-engine omcs::*current-SE*))
     (omcs::read-key (svref (omcs::search-variables my-search-engine) (omcs::variable-pos my-search-engine)) :sols-list)))
 
 (om::defmethod! omcs::rev-partial-solution ()
   :doc "returns the partial-solution in reverse"
-  :icon 403
+  :icon 406
   (let ((my-search-engine omcs::*current-SE*))
     (omcs::read-key (svref (omcs::search-variables my-search-engine) (omcs::variable-pos my-search-engine)) :rev-sols-list)))
 

@@ -32,7 +32,7 @@
 ;****************************
 (om::defmethod! omcs::pmc-engine ((s-space list)
                                   (rules list)
-                                  &optional (heuristic-rules nil) (fwc-rules nil) (sols-mode :once) (rnd? t) (print-fl nil))
+                                  &key (heuristic-rules nil) (fwc-rules nil) (sols-mode :once) (rnd? t) (print-fl nil))
   
   :initvals '(nil nil nil nil :once t nil)
   :indoc '("s-space" "rules" "heuristic-rules" "fwc-rules" "sols-mode" "random?" "print-indexnr?" )

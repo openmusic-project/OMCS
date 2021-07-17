@@ -5,28 +5,7 @@
 
 ;===============================================
 ;===============================================
-(in-package omcs)
-;===============================================
-;added from PatchWork by Orjan
-(defun cirlist (elem)
-  "makes a circular list out of elem"
-  (setq elem (list elem))
-  (rplacd elem elem))
-
-;===============================================
-;  User search-engine functions
-;===============================================
-(defun engine () 
-  "returns the current search-engine" *current-SE*)
-
-(defun cur-index () 
-  "returns the current search-index (counted from 1)" 
-  (1+ (variable-pos *current-SE*)))
-
-(defun cur-slen () 
-  "returns the number of search-variables of the current search-engine" 
-  (length (search-variables *current-SE*))) 
-
+(in-package :omcs)
 ;===============================================
 ;  User search-variable macros and functions
 ;===============================================
@@ -159,16 +138,69 @@ If list is not exhausted by group-lens, the last value of
   (when (listp (car notes)) (setq notes (car notes))) 
   (member (SC-name-from-points notes)  setnames))
 
-(defun eq-SC? (set-classes &rest midis) 
-"checks whether the SC identity of midis (a list of midi-values) is found
+(om::defmethod! omcs::eq-SC? (set-classes &rest midis) 
+ ; :initvals '('4-1)
+  :indoc '("set-classes" "midis")
+  :icon 403
+  :doc "checks whether the SC identity of midis (a list of midi-values) is found
 in set-classes (a list of SC-names).
 set-classes can be a single SC or list of SCs, midis individual midi-values
 or a list of midis."
   (setq set-classes (om::list! set-classes)) 
   (when (listp (car midis)) (setq midis (car midis))) 
   (member (SC-name-from-points midis)  set-classes))
+
 ;(eq-SC? '(3-11a 3-11b) 60 64 67))
 ;(eq-SC? '(3-11a 3-11b) '(60 64 67))
+
+(defun member-sets (sc) 
+  (let ((prime (prime sc)) res)
+    (om::for (int 0 1 11)
+      (push (mapcar #'(lambda (n) (mod (+ int n) 12)) prime) res))
+    (nreverse res))) 
+
+(defun complement-pcs (sc) 
+  (reverse (set-difference '(0 1 2 3 4 5 6 7 8 9 10 11) (prime sc))))
+
+(om::defmethod! omcs::scs/card ((card number)) 
+  :initvals '(1)
+  :indoc '("card")
+  :icon 403
+  :doc "returns all SCs of a given cardinality (card)"
+  (nth card omcs::*all-SC-names*))
+
+
+(om::defmethod! omcs::sc-info ((function t)  (sc-name t))
+  :initvals '(1)
+  :indoc '("function" "sc-name")
+  :icon 403
+  :doc "allows to access information of a given SC (second input, SC-name). 
+The type of information is defined by the first input (function). 
+This input is a menu-box and contains the following menu-items:
+
+CARD          returns the cardinality of SC   
+PRIME         returns the prime form of SC
+ICV           returns the interval-class vector of SC
+MEMBER-SETS   returns a list of the member-sets of SC 
+             (i.e. all 12 transpositions of the prime form)
+COMPLEMENT-PCs   returns a list of PCs not included in the prime form of SC 
+
+The second input is also a menu-box, where the user selects
+the SC-name. When the input is scrolled, it displays all SC-names
+of a given cardinality. The cardinality can be incremented by alt-clicking  
+or decremented by alt-command-clicking the input.
+The input accepts also a list of SC-names. In this case
+the SC-info box returns the requested information for all given SC-names."
+  ;(print (type-of (read-from-string  sc-name)))
+  (if (atom sc-name)
+    (funcall (read-from-string function) 
+             (if (stringp sc-name)  (read-from-string sc-name) sc-name))
+    (let ((fn (read-from-string function)))
+      (mapcar #'(lambda (sc)
+                  (funcall fn (if (stringp sc)  (read-from-string sc) sc))) sc-name))))
+
+
+
 ;===============================================
 ;  Groupings
 ;===============================================
@@ -209,10 +241,10 @@ which returns true as the last item (1) is at the 1st position of the last subse
                         (push (subseq l i (length l)) res))
                       (return))
                (push (subseq l i (+ i card)) res)))
-    res))
+    (reverse res)))
 
-;(group-to-chain (om::arithm-ser 1 1 19) 6)
-;(group-to-chain (om::arithm-ser 1 1 6) 4)
+;(group-to-chain (om::arithm-ser 1 19 1) 6)
+;(group-to-chain (om::arithm-ser 1 6 1) 4)
 
 (defun check-chain? (l card SC-names) 
 "checks whether l (imbricated with a step size card/2) is a chain consisting 

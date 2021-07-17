@@ -3,8 +3,9 @@
 ;;; PWConstraints by Mikael Laurson (c), 1995
 ;;; 
 ;;; The pmc engine transported to OpenMusic 1999 (by Orjan Sandred)
+;;; Extra Portage to OpenMusic 2021 (by Karim Haddad)
 ;;; 
-;;; All copyright belongs to Mikael Laurson, who also is the author of 
+;;; All copyright belongs to Mikael Laurson, who is the author of 
 ;;; the code for this library.
 
 ;===============================================
@@ -35,7 +36,10 @@
         "PM-compiler"
         "forward-checking"
         "OMCs-utilities-split1"
+        "OMCs-utilities"
         "Graphic-rule-interface"
+        "all-SCs"
+        "PC-set-theory"
         ))
 
 
@@ -51,16 +55,20 @@
 (om::fill-library '(
         ("01-PMC" nil nil (pmc-engine) nil)
         ("02-RULES" nil nil (wildcard-rule index-rule) nil)
-        ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index) nil)
+        ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index current-length) nil)
+        ("04-PC-SET-THEORY" (("Tools" nil nil (card eq-SC? ICV prime subsets supersets) nil))
+         nil (SC-name SC+off SCs/card SC-info sub/supersets all-subs) nil)
+        ("05-UTILITIES" nil nil (wildcard-rule index-rule) nil)
         ))
 
 
-(om::set-lib-release 1.2)
+(om::set-lib-release 1.3)
 
 (print "
 ;;;=============================================
-;;; OMCS 1.2
+;;; OMCS 1.3
 ;;; PMC engine for OM by M. Laurson / O. Sandred
+;;; Augemnted and revised by K. Haddad
 ;;;=============================================
 ")
 
