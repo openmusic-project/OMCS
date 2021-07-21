@@ -58,4 +58,6 @@ PMC has the following arguments:
 "
   :icon 400
     
-  (time (pmc s-space rules :fwc-rules fwc-rules :heuristic-rules heuristic-rules :sols-mode sols-mode :rnd? rnd? :print-fl print-fl)))
+  (time 
+   (reverse
+   (pmc s-space rules :fwc-rules fwc-rules :heuristic-rules heuristic-rules :sols-mode sols-mode :rnd? rnd? :print-fl print-fl))))
