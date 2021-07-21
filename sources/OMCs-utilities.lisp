@@ -129,9 +129,26 @@ If list is not exhausted by group-lens, the last value of
   `(sort (copy-list ,l) #'<))
 
 ;===============================================
+;  N-Queen puzzle
+;===============================================
+
+(defun Nqns-noattack (x y tail)
+ (cond ((null tail) t)
+        ((member y tail) nil)
+        (t (let ((fl t)(x1 (length tail)))
+             (om::while (and fl tail)
+               (when (= (abs (- y (pop tail))) (- x x1)) 
+                 (setq fl nil))
+               (decf x1))
+             fl))))
+
+
+;===============================================
 ;  PCS
 ;===============================================
 ; in SC-names.lisp: SC-name, SC+off, card, all-subs
+;already in PC-set-theory as defun
+#|
 (defun eq-set (setnames &rest notes) 
 "setnames can be SC or list of SC's, notes can be midis or a list of midis"
   (setq setnames (om::list! setnames)) 
@@ -139,7 +156,7 @@ If list is not exhausted by group-lens, the last value of
   (member (SC-name-from-points notes)  setnames))
 
 (om::defmethod! omcs::eq-SC? (set-classes &rest midis) 
- ; :initvals '('4-1)
+  :initvals '('4-1)
   :indoc '("set-classes" "midis")
   :icon 403
   :doc "checks whether the SC identity of midis (a list of midi-values) is found
@@ -159,6 +176,7 @@ or a list of midis."
     (om::for (int 0 1 11)
       (push (mapcar #'(lambda (n) (mod (+ int n) 12)) prime) res))
     (nreverse res))) 
+|#
 
 (defun complement-pcs (sc) 
   (reverse (set-difference '(0 1 2 3 4 5 6 7 8 9 10 11) (prime sc))))
@@ -570,12 +588,12 @@ The equality can be defined by giving an optional test function."
 rl is a reversed list of midi-values!
 This function is optimised for partial solutions in reversed order (rl)."
  (let ((fl t))
-  (while (and fl (cdr rl))
+  (om::while (and fl (cdr rl))
     (when (= int (funcall key (- (first rl) (second rl))))
        (setq fl nil))
     (pop rl))
  fl))
-;(time (repeat 5000 (unique-int? 6 '(7 2 5 7 0 4 6 1 8) :key #'(lambda (n) (mod n 12)))))
+;(time (om::repeat 5000 (unique-int? 6 '(7 2 5 7 0 4 6 1 8) :key #'(lambda (n) (mod n 12)))))
 
 (defun unique-ints? (ints rl &key (key #'identity))
 "checks if ints are unique (not found in rl).
@@ -583,11 +601,11 @@ rl is a reversed list of midi-values!
 This function is optimised for partial solutions in reversed order (rl)."
   (let ((fl t) fl2 ints-c rl-c)
     (setq ints (reverse ints))
-    (while (and fl (nth (length ints) rl))
+    (om::while (and fl (nth (length ints) rl))
       (setq ints-c ints)
       (setq rl-c rl)
       (setq fl2 t)
-      (while (and fl ints-c fl2)
+      (om::while (and fl ints-c fl2)
         ;(print (list (first ints-c) (- (first rl-c) (second rl-c))))
         (setq fl2 (= (first ints-c) (funcall key (- (first rl-c) (second rl-c)))))
         (pop ints-c) (pop rl-c))
@@ -606,7 +624,7 @@ This function is optimised for partial solutions in reversed order (rl)."
 "checks whether x is not found in list, list in reversed order!
 This function is optimised for partial solutions in reversed order (rl)."
  (let ((fl t))
-   (while (and fl list (> cnt 0))
+   (om::while (and fl list (> cnt 0))
      (when (= (funcall key (first list)) x)
         (setq fl nil))
      (pop list)
