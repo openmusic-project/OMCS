@@ -79,7 +79,7 @@ midis can be either single midi-values or a list of midi-values"
 (defun find-all-if (test l)
 "returns all items in l that satisfy <test>"
   (let (res)
-    (while l
+    (om::while l
       (when (funcall test (first l)) (push (first l) res))
       (pop l))
     (nreverse res)))
@@ -89,11 +89,11 @@ midis can be either single midi-values or a list of midi-values"
 ;; imbricate
 (defun imb-group2 (lst len imb-count)
   (let ((res)(temp))
-    (while lst
+    (om::while lst
            (unless (< (length lst) len)
              (setq temp (subseq lst 0 len))
              (push temp res))
-           (repeat imb-count (pop lst)))
+           (om::repeat imb-count (pop lst)))
     (nreverse res)))
 
 (defun imbricate (lowcard highcard step list)
@@ -101,7 +101,7 @@ midis can be either single midi-values or a list of midi-values"
 to define the range of the subsequence lengths; step indicates how many 
 items we proceed in list before starting with the next subsequence."  
   (let ((res))
-    (for (i lowcard 1 highcard)
+    (om::for (i lowcard 1 highcard)
       (push (imb-group2 list i step) res))
     (apply #'append (nreverse res))))
 
@@ -112,9 +112,9 @@ If list is not exhausted by group-lens, the last value of
  group-lens will be used as a constant until list has been exhausted."
   (let ((res)(temp-res)(gr-len))
     (when (numberp group-lens) (setq group-lens (cirlist  group-lens)))
-    (while list
+    (om::while list
       (when group-lens (setq gr-len (pop group-lens)))
-      (repeat gr-len
+      (om::repeat gr-len
         (when (car list)
           (push (car list) temp-res))
         (pop list))
@@ -152,6 +152,7 @@ or a list of midis."
 
 ;(eq-SC? '(3-11a 3-11b) 60 64 67))
 ;(eq-SC? '(3-11a 3-11b) '(60 64 67))
+;(eq-SC? '(4-1) '(0 1 2 3))
 
 (defun member-sets (sc) 
   (let ((prime (prime sc)) res)
@@ -171,7 +172,7 @@ or a list of midis."
 
 
 (om::defmethod! omcs::sc-info ((function t)  (sc-name t))
-  :initvals '(1)
+  :initvals '(t |4-1|)
   :indoc '("function" "sc-name")
   :icon 403
   :doc "allows to access information of a given SC (second input, SC-name). 
@@ -429,7 +430,7 @@ See the 'Atleast property' example."
   (when (atom (car atleast-cnt-item-lst)) 
     (setq atleast-cnt-item-lst (list atleast-cnt-item-lst)))
   (let ((cur-len (length l)) (fl t))
-    (while (and atleast-cnt-item-lst fl) 
+    (om::while (and atleast-cnt-item-lst fl) 
       (setq fl (atleast-check l total-len cur-len
                               (first (car atleast-cnt-item-lst))
                               (second (car atleast-cnt-item-lst))
@@ -465,7 +466,7 @@ Then this list is grouped into sublists. The length of the sublists is given by 
 data-group-of-part returns the data items of the first sublist.
 See the 'Splitter' example."
   (let (res)
-    (while partnum-data-lists
+    (om::while partnum-data-lists
       (when (= (sp-partnum (car partnum-data-lists)) partnum)
         (push (data (car partnum-data-lists)) res))
       (pop partnum-data-lists)) 
@@ -555,7 +556,7 @@ See the 'Constraining Chords' example."
 "counts the number of adjacent equal items found at the beginning of list. 
 The equality can be defined by giving an optional test function."  
  (let ((cnt 0) (prev (car list)))
-    (while (and list (funcall test prev (pop list)))
+    (om::while (and list (funcall test prev (pop list)))
       (incf cnt))
      cnt))
 
