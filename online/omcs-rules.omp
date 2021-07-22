@@ -1,0 +1,4 @@
+; OM File Header - Saved 2021/07/18 1:20:40
+; (6.2 :patc (om-make-point 151 38) (om-make-point 0 0) (om-make-point 500 344) "" 183 0 "2021/07/18 1:17:23" "2021/07/18 1:20:40")
+; End File Header
+(in-package :om)(load-lib-for (quote ("OMCS")))(setf *om-current-persistent* (om-load-patch1 "omcs-rules" (quote ((let ((box (om-load-boxcall (quote genfun) "WILDCARD-RULE" (quote omcs::wildcard-rule) (quote ((om-load-inputfun (quote input-funbox) "function" "FUNCTION" nil))) (om-make-point 142 38) nil nil nil nil 1))) (when (fboundp (quote set-active)) (set-active box nil)) box) (let ((box (om-load-boxcall (quote genfun) "INDEX-RULE" (quote omcs::index-rule) (quote ((om-load-inputfun (quote input-funbox) "function" "FUNCTION" nil) (om-load-inputfun (quote input-funbox) "list" "INDEX-NUMBERS" (list 1)))) (om-make-point 254 40) nil nil nil nil 1))) (when (fboundp (quote set-active)) (set-active box nil)) box))) (quote nil) nil 6.2))

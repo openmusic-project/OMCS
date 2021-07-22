@@ -38,10 +38,15 @@
         "OMCs-utilities-split1"
         "OMCs-utilities"
         "Graphic-rule-interface"
-        "all-SCs"
-        "PC-set-theory"
         ))
 
+(mapc #'(lambda (file) 
+          (compile&load (make-pathname :directory (append (pathname-directory *load-pathname*) 
+                                                          (list "sources" "PC-set-theory")) :name file)))
+      '(
+        "all-SCs"
+        "PC-set-theory" 
+        ))
 
 (in-package :omcs)
 
