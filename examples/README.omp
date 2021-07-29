@@ -1,0 +1,4 @@
+; OM File Header - Saved 2021/07/29 18:31:05
+; (6.2 :patc (om-make-point 105 26) (om-make-point 0 0) (om-make-point 508 269) "" 183 0 "2021/07/28 13:14:41" "2021/07/29 18:30:57")
+; End File Header
+(in-package :om)(load-lib-for (quote nil))(setf *om-current-persistent* (om-load-patch1 "README" (quote ((let ((box (om-load-boxcomment "comment" (om-make-point 432 126) (quote "All examples are from  \"The Musical Fundamentals of Computer Assisted Composition\" Book, by Orjan Sandred and Mikael'sLaurson's PWConstraints manual.") nil (om-make-point 49 70) nil (om-make-color 0 0 0) (om-make-font "Liberation Sans" 16.0D0 :family "Liberation Sans" :style (quote (:plain)) :mode (quote nil))))) (when (fboundp (quote set-active)) (set-active box nil)) box))) (quote nil) nil 6.2))
