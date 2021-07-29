@@ -17,7 +17,11 @@
 ;version 1.02 updated the code to load properly in OM 6.12
 ;   Known issue: icons are not showing properly (default icon is used)
 ;version 1.1 merge versions/update encoding and files
-
+;version 1.3:
+; - pmc-engine now uses key input instead of optional input
+; - pc-theory pack ported
+; - many code fixes
+; - added examples
 ;--------------------------------------------------
 (in-package :cl-user)
  
@@ -77,4 +81,4 @@
 ;;;=============================================
 ")
 
-;ERRORS function while? in constraint-utilities.lisp, search-variable.lisp
+
