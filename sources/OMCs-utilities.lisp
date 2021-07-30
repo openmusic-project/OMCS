@@ -170,13 +170,17 @@ or a list of midis."
 ;(eq-SC? '(3-11a 3-11b) 60 64 67))
 ;(eq-SC? '(3-11a 3-11b) '(60 64 67))
 ;(eq-SC? '(4-1) '(0 1 2 3))
+|#
+
 
 (defun member-sets (sc) 
   (let ((prime (prime sc)) res)
     (om::for (int 0 1 11)
       (push (mapcar #'(lambda (n) (mod (+ int n) 12)) prime) res))
     (nreverse res))) 
-|#
+
+
+
 
 (defun complement-pcs (sc) 
   (reverse (set-difference '(0 1 2 3 4 5 6 7 8 9 10 11) (prime sc))))
@@ -189,13 +193,18 @@ or a list of midis."
   (nth card omcs::*all-SC-names*))
 
 
-(om::defmethod! omcs::sc-info ((function t)  (sc-name t))
-  :initvals '(t |4-1|)
-  :indoc '("function" "sc-name")
+(om::defmethod! omcs::sc-info ((sc-name symbol) (menu symbol))
+  :initvals '(|4-1| 'card)
+  :indoc '("sc-name" "type-of-info")
+  :menuins '((1 (("card" 'card) 
+                 ("prime" 'prime)
+                 ("icv" 'icv)
+                 ("member-sets" 'member-sets)
+                 ("complement-PCs" 'complement-PCs)
+                 )))
   :icon 403
-  :doc "allows to access information of a given SC (second input, SC-name). 
-The type of information is defined by the first input (function). 
-This input is a menu-box and contains the following menu-items:
+  :doc "allows to access information of a given SC (first input, SC-name). 
+The type of information is defined by the second input (menu):
 
 CARD          returns the cardinality of SC   
 PRIME         returns the prime form of SC
@@ -211,12 +220,19 @@ or decremented by alt-command-clicking the input.
 The input accepts also a list of SC-names. In this case
 the SC-info box returns the requested information for all given SC-names."
   ;(print (type-of (read-from-string  sc-name)))
-  (if (atom sc-name)
-    (funcall (read-from-string function) 
-             (if (stringp sc-name)  (read-from-string sc-name) sc-name))
-    (let ((fn (read-from-string function)))
-      (mapcar #'(lambda (sc)
-                  (funcall fn (if (stringp sc)  (read-from-string sc) sc))) sc-name))))
+
+  (case menu
+    (card (omcs::card sc-name))
+    (prime (omcs::prime sc-name))
+    (icv (omcs::icv sc-name))
+    (member-sets (omcs::member-sets sc-name))
+    (complement-pcs (omcs::complement-pcs sc-name))))
+
+
+(om::defmethod! omcs::sc-info ((sc-name list) (menu symbol))
+  (mapcar #'(lambda (sc) (sc-info sc menu)) sc-name))
+
+
 
 
 
