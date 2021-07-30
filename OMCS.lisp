@@ -67,7 +67,7 @@
         ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index current-length) nil)
         ("04-PC-SET-THEORY" (("Tools" nil nil (card eq-SC? ICV prime subsets supersets) nil))
          nil (SC-name SC+off SCs/card SC-info sub/supersets all-subs) nil)
-        ("05-UTILITIES" nil nil (wildcard-rule index-rule) nil)
+       ; ("05-UTILITIES" nil nil (wildcard-rule index-rule) nil)
         ))
 
 
