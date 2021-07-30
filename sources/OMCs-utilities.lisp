@@ -192,6 +192,26 @@ or a list of midis."
   :doc "returns all SCs of a given cardinality (card)"
   (nth card omcs::*all-SC-names*))
 
+;---------
+(defun format-card-table ()
+  (loop for i in omcs::*all-flat-SC-names*
+        collect (list (format nil "~S" i) (format nil "~S" i))))
+
+(defparameter *mytable* nil)
+(setf *mytable* (format-card-table))
+
+(om::defmethod! omcs::all-SC-names (sc)
+  :initvals '(t)
+  :indoc '("Instrument name")
+  :menuins (list (list 0 *mytable*))
+  :doc "Outputs General MIDI program number corresponding to <progName>."
+  :icon 404
+  (let ((omcs-sc (format nil "omcs\:\:~A" sc)))
+  (read-from-string omcs-sc)
+  ))
+;--------
+
+
 
 (om::defmethod! omcs::sc-info ((sc-name symbol) (menu symbol))
   :initvals '(|4-1| 'card)

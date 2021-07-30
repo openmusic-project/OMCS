@@ -40,7 +40,6 @@
         "PM-compiler"
         "forward-checking"
         "OMCs-utilities-split1"
-        "OMCs-utilities"
         "Graphic-rule-interface"
         ))
 
@@ -50,6 +49,12 @@
       '(
         "all-SCs"
         "PC-set-theory" 
+        ))
+
+(mapc #'(lambda (file) 
+          (compile&load (make-pathname :directory (append (pathname-directory *load-pathname*) 
+                                                          (list "sources")) :name file)))
+      '("OMCs-utilities"
         ))
 
 (in-package :omcs)
@@ -66,7 +71,7 @@
         ("02-RULES" nil nil (wildcard-rule index-rule) nil)
         ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index current-length) nil)
         ("04-PC-SET-THEORY" (("Tools" nil nil (card eq-SC? ICV prime subsets supersets) nil))
-         nil (SC-name SC+off SCs/card SC-info sub/supersets all-subs) nil)
+         nil (SC-name SC+off all-SC-names SCs/card SC-info sub/supersets all-subs) nil)
         ))
 
 
