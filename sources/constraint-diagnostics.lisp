@@ -45,3 +45,29 @@
       (write-key fn :stats 0))))
 
 
+;("Engine" "Allsols" "Partialsol")
+
+(om::defmethod! engine-info ((function symbol)) 
+  :initvals '('engine) 
+  :indoc '("info type")
+  :menuins '((0 (("engine" 'engine) 
+                 ("allsols" 'allsols)
+                 ("domains" 'domains)
+                 ("other-values" 'othervalues)
+                 ("partialsol" 'partialsol))))
+  :icon 407
+  :doc "allows the user to access some of the internals of the current search-engine. This box is useful for debugging purposes"
+ (let ((fn function))
+    (cond 
+     ((equal fn 'engine) (omcs::engine))
+     ((equal fn 'allsols) (when (omcs::engine) (omcs::all-sols (omcs::engine))))
+     ((equal fn 'domains)  
+      (when (omcs::engine) (mapcar #'(lambda (sv) (omcs::domain sv)) (omcs::search-variables-list (omcs::engine)))))
+    ((equal fn 'other-values) 
+     (when (omcs::engine) (mapcar #'(lambda (sv) (omcs::other-values sv)) (omcs::search-variables-list (omcs::engine)))))
+    ((equal fn 'partialsol) 
+     (when (omcs::engine) (mapcar #'omcs::value (omcs::search-variables-list (omcs::engine))))))))
+
+
+
+
