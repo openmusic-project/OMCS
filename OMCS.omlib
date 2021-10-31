@@ -4,7 +4,7 @@
 
 (:om-lib
  
- (:version 1.2)
+ (:version 1.4)
 
  (:doc "PMC engine for OM")
 
@@ -25,7 +25,7 @@
 
  (:symbols
   (:packages 
-   (:package (:name "PMC") (:functions "omcs::pmc-engine"))
+   (:package (:name "PMC") (:functions "omcs::pmc-engine" "omcs::engine-info"))
    (:package (:name "Rules") (:functions "omcs::wildcard-rule" "omcs::index-rule"))
    (:package (:name "Tools") (:functions "omcs::partial-solution" "omcs::rev-partial-solution" "omcs::current-index"))
    ))

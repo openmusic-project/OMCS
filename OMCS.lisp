@@ -41,6 +41,7 @@
         "forward-checking"
         "OMCs-utilities-split1"
         "Graphic-rule-interface"
+        "omcs-preferences"
         ))
 
 (mapc #'(lambda (file) 
@@ -67,7 +68,7 @@
 ;--------------------------------------------------
 
 (om::fill-library '(
-        ("01-PMC" nil nil (pmc-engine) nil)
+        ("01-PMC" nil nil (pmc-engine engine-info) nil)
         ("02-RULES" nil nil (wildcard-rule index-rule) nil)
         ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index current-length) nil)
         ("04-PC-SET-THEORY" (("Tools" nil nil (card eq-SC? ICV prime subsets supersets) nil))
@@ -75,11 +76,11 @@
         ))
 
 
-(om::set-lib-release 1.3)
+(om::set-lib-release 1.4)
 
 (print "
 ;;;=============================================
-;;; OMCS 1.3
+;;; OMCS 1.4
 ;;; PMC engine for OM by M. Laurson / O. Sandred
 ;;; Augemnted and revised by K. Haddad
 ;;;=============================================
