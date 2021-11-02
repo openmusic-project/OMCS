@@ -101,12 +101,15 @@ inputs to the rule."
 
 ;------ OM interface
 
-
 (om::defmethod! omcs::wildcard-rule ((function function)
-                                     &optional (variable1 'om::no_input) (variable2 'om::no_input))
+                                      &optional 
+                                      (doc "")
+                                      (variable1 'om::no_input) 
+                                      (variable2 'om::no_input)) 
+                                      
   
-  :initvals '(nil 'om::no_input 'om::no_input)
-  :indoc '("function" "variable1" "variable2")
+  :initvals '(nil "" 'om::no_input 'om::no_input)
+  :indoc '("function" "rule doc" "variable1" "variable2")
   :icon 401
   :doc "Takes any function and creats a pmc rule out of it. The inputs to the function 
 will be called ?1 ?2 ?3.... ?n. The function migth be an OM patch in the lambda state.
@@ -119,15 +122,19 @@ if variable1 is used, and the rule has 3 inputs, input 1 and to will be used for
 and input 3 will be used for the value of variable1."
 
 
+  (om::x-append
+   (make-wildcard-rule2 function variable1 variable2)
+   doc))
 
-  (make-wildcard-rule2 function variable1 variable2))
 
-
-(om::defmethod! omcs::index-rule ((function function) (index-numbers list)
-                                  &optional (variable1 'om::no_input) (variable2 'om::no_input))
+(om::defmethod! omcs::index-rule ((function function) 
+                                   (index-numbers list)
+                                   &optional (doc "")
+                                   (variable1 'om::no_input) 
+                                   (variable2 'om::no_input))
   
-  :initvals '(nil '(1) 'om::no_input 'om::no_input)
-  :indoc '("function" "list" "variable1" "variable2")
+  :initvals '(nil '(1) "" 'om::no_input 'om::no_input)
+  :indoc '("function" "list" "rule doc" "variable1" "variable2")
   :icon 402
   :doc "Takes any function and creats a pmc index rule out of it. The inputs to the function 
 will be assigned to the index numbers given in the list of index-numbers (and the index numbers 
@@ -141,8 +148,9 @@ always get the values from these inputs in the place of the search variable (i.e
 if variable1 is used, and the rule has 3 inputs, input 1 and to will be used for the first
 and second index variable, and input 3 will be used for the value of variable1."
  
-    
-  (make-i-rule2 function index-numbers variable1 variable2))
+  (om::x-append
+  (make-i-rule2 function index-numbers variable1 variable2)
+  doc))
 
 
 (om::defmethod! omcs::current-index ()
