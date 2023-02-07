@@ -69,11 +69,11 @@
     (om-add-subviews thescroll 
                      
 
-                     (om-make-dialog-item 'om-static-text (om-make-point l1 (incf posy dy)) (om-make-point 90 24) "Rule Diagnostics"
+                     (om-make-dialog-item 'om-static-text (om-make-point l1 (incf posy dy)) (om-make-point 140 24) "Rule Diagnostics"
                                           :font *controls-font*) 
 
                      (om-make-dialog-item 'om-check-box (om-make-point (+ l1 100) posy)
-                                          (om-make-point 200 15) ""
+                                          (om-make-point 24 15) ""
                                           :font *controls-font*
                                           :checked-p (get-pref modulepref :constr-diag)
                                           :di-action (om-dialog-item-act item 
