@@ -148,6 +148,7 @@ If list is not exhausted by group-lens, the last value of
 ;===============================================
 ; in SC-names.lisp: SC-name, SC+off, card, all-subs
 ;already in PC-set-theory as defun
+;; MOVED TO PC-SET-THEORY (PHRAPOSO)
 #|
 (defun eq-set (setnames &rest notes) 
 "setnames can be SC or list of SC's, notes can be midis or a list of midis"
@@ -172,15 +173,18 @@ or a list of midis."
 ;(eq-SC? '(4-1) '(0 1 2 3))
 |#
 
+;;=================================================;;
+;; THE FUNCTIONS member-sets, complement-pcs,
+;; format-card-table , all-SC-names and SC-info
+;; WAS MOVED TO /PC-SET-THEORY/PC-SET-THEORY.LISP
+;; PHRAPOSO (2024)
 
+#|
 (defun member-sets (sc) 
   (let ((prime (prime sc)) res)
     (om::for (int 0 1 11)
       (push (mapcar #'(lambda (n) (mod (+ int n) 12)) prime) res))
     (nreverse res))) 
-
-
-
 
 (defun complement-pcs (sc) 
   (reverse (set-difference '(0 1 2 3 4 5 6 7 8 9 10 11) (prime sc))))
@@ -251,7 +255,8 @@ the SC-info box returns the requested information for all given SC-names."
 
 (om::defmethod! omcs::sc-info ((sc-name list) (menu symbol))
   (mapcar #'(lambda (sc) (sc-info sc menu)) sc-name))
-
+|#
+;;=================================================;;
 
 
 
@@ -335,7 +340,7 @@ This function is used by the 'Chains' example"
   (setq -inds (remove-duplicates (om::flat -inds)))
   (let (res)
     (setq l (om::om+ start l))
-    (for (i 1 1 (length l))
+    (om::for (i 1 1 (length l))
       (cond ((member i +inds) (push (+ (nth (1- i) l) 12) res))
             ((member i -inds) (push (- (nth (1- i) l) 12) res))
             (t (push (nth (1- i) l) res))))
@@ -360,7 +365,7 @@ This function is used by the 'Chains' example"
 "like equal but tol specifies in how many places the two list can differ
 the lists have to of equal size"
   (let ((tol-cnt 0) (fl t))
-    (while (and l1 l2 fl)
+    (om::while (and l1 l2 fl)
       (when (not (eq (pop l1) (pop l2)))
         (incf tol-cnt)
         (if (> tol-cnt tol) (setq fl nil))))
@@ -373,7 +378,7 @@ the lists have to of equal size"
 "returns a list of indexes (a list with low and high) where the data containes the contour
 overlaps of idexes can be avoided by setting reduce-overlaps to t " 
   (let (res)
-    (for (i 0 1 (1- (length data)))
+    (om::for (i 0 1 (1- (length data)))
       (when (and (>= (length data) (length contour))
                  (tol-equal (contour (subseq data 0  (length contour))) contour tol))
         (if (and res reduce-overlaps)
@@ -409,7 +414,7 @@ result list)."
         (testfn (cond ((stringp (car lst)) #'string=)
                       ((atom (car lst)) #'eq)
                       ((listp (car lst)) #'equal)))) 
-    (while lst
+    (om::while lst
        (push (list
                 (count (car lst) lst :test testfn)
                 (car lst))
@@ -538,7 +543,7 @@ See the 'Splitter' example."
     (setq mel (mapcar #'list (om::arithm-ser 0 1 (1- (length mel))) mel))) 
   (let (res 1st 2nd 3rd)
     (push (pop mel) res)               ;;;;; first note
-    (while (cdr mel)            
+    (om::while (cdr mel)            
       (setq 1st (mel-pitch (car res)) 2nd (mel-pitch (first mel)) 3rd (mel-pitch (second mel)))
       (if (or (<= 1st 2nd 3rd)
               (>= 1st 2nd 3rd))
@@ -562,7 +567,7 @@ See the 'Syyssonetti' example."
       (setq l (cdr l)))
     (when (> (mel-pitch (first (last l))) (mel-pitch (first (last l 2))))
       (setq last-skyl (first (last l))))
-    (while l
+    (om::while l
       (when (>= (length l) 3)
         (push (subseq l 0 3) res))
       (pop l) (pop l))
@@ -677,7 +682,7 @@ This function is optimised for partial solutions in reversed order (rl)."
 also x and y have to be in reversed order!
 This function is optimised for partial solutions in reversed order (rl)."
  (let ((fl t))
-   (while (and fl (cdr list) (> cnt 1))
+   (om::while (and fl (cdr list) (> cnt 1))
      (when (and (= (first list) x) (= (second list) y))
         (setq fl nil))
      (pop list)
@@ -706,7 +711,7 @@ This function is optimised for partial solutions in reversed order (rl)."
 also x, y and z have to be in reversed order!
 This function is optimised for partial solutions in reversed order (rl)."
  (let ((fl t))
-   (while (and fl (cddr list) (> cnt 2))
+   (om::while (and fl (cddr list) (> cnt 2))
      (when (and (= (first list) x) (= (second list) y) (= (third list) z))
         (setq fl nil))
      (pop list)

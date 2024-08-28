@@ -48,8 +48,10 @@
           (compile&load (make-pathname :directory (append (pathname-directory *load-pathname*) 
                                                           (list "sources" "PC-set-theory")) :name file)))
       '(
-        "all-SCs"
-        "PC-set-theory" 
+	  "SCs-data"
+	  "normal-order-data"
+      "all-SCs"
+      "PC-set-theory" 
         ))
 
 (mapc #'(lambda (file) 
@@ -72,17 +74,18 @@
         ("02-RULES" nil nil (wildcard-rule index-rule) nil)
         ("03-TOOLS" nil nil (partial-solution rev-partial-solution current-index current-length) nil)
         ("04-PC-SET-THEORY" (("Tools" nil nil (card eq-SC? ICV prime subsets supersets) nil))
-         nil (SC-name SC+off all-SC-names SCs/card SC-info sub/supersets all-subs) nil)
+         nil (SC-name SC+off SCs-card SC-info all-sc-names sub/supersets SC-subsets normal-order) nil)
         ))
 
 
-(om::set-lib-release 1.4)
+;(om::set-lib-release 1.5)
 
 (print "
 ;;;=============================================
-;;; OMCS 1.4
+;;; OMCS 1.5
 ;;; PMC engine for OM by M. Laurson / O. Sandred
-;;; Augemnted and revised by K. Haddad
+;;; Augmented and revised by K. Haddad
+;;; Pc-set theory: revised by Paulo Raposo
 ;;;=============================================
 ")
 
