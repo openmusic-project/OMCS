@@ -12,6 +12,7 @@
   (:use "COMMON-LISP" "CL-USER")
   ;(:import-from )
   ;(:export )
+  (:nicknames "CSP")
   )
 
 (import '(?if l rl len) :omcs)
