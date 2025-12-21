@@ -7,6 +7,4 @@ Ported to OpenMusic by Orjan Sandred, 1999
 
 #### Documentation:
 
-See the PWContraints user manual (1996)
-
-https://openmusic-project.github.io/openmusic/doc/om-libraries/PW-Constraints.pdf
+See the PWContraints user manual (1996): [PW-Constraints.pdf](https://openmusic-project.github.io/openmusic/doc/om-libraries/PW-Constraints.pdf)
