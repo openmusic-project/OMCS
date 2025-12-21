@@ -10,3 +10,5 @@ Ported to OpenMusic by Orjan Sandred, 1999
 See the PWContraints user manual (1996)
 
 http://support.ircam.fr/docs/om-libraries/old/PW-Constraints.pdf
+
+https://openmusic-project.github.io/openmusic/doc/om-libraries/PW-Constraints.pdf
