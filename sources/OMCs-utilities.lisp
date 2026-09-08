@@ -101,8 +101,8 @@ midis can be either single midi-values or a list of midi-values"
 to define the range of the subsequence lengths; step indicates how many 
 items we proceed in list before starting with the next subsequence."  
   (let ((res))
-    (om::for (i lowcard 1 highcard)
-      (push (imb-group2 list i step) res))
+    (om::for (omcs::i lowcard 1 highcard) ;included omcs::i (phraposo - 13/08/2026)
+      (push (imb-group2 list omcs::i step) res));included omcs::i (phraposo - 13/08/2026)
     (apply #'append (nreverse res))))
 
 (defun group (list group-lens)
